@@ -45,9 +45,12 @@ public class Solution {
 
 class UnionFind {
 
-    int[] parent;
-    int[] rank;
-    int groupsOfConnectedComponents;
+    private static final int NEW_UNION = 1;
+    private static final int NOT_NEW_UNION = 0;
+
+    private final int[] parent;
+    private final int[] rank;
+    private int groupsOfConnectedComponents;
 
     UnionFind(int totalNodes) {
         //'parent' and 'rank' length = 'totalNodes + 1'
@@ -68,7 +71,7 @@ class UnionFind {
         first = findParent(first);
         second = findParent(second);
         if (first == second) {
-            return 0;
+            return NOT_NEW_UNION;
         }
 
         --groupsOfConnectedComponents;
@@ -80,7 +83,7 @@ class UnionFind {
             parent[first] = second;
             rank[second] += rank[first];
         }
-        return 1;
+        return NEW_UNION;
     }
 
     boolean graphIsFullyTraversable() {
